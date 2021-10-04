@@ -1,12 +1,12 @@
 #---
 #title: "PCNM for Squirrel Microbiome by Month(SHARCNET)"
 #author: "Alicia Halhed"
-#date: "05/22/2020"
+#date: "10/04/2021"
 #---
 
 print("Set up (working directory, theme, and packages)")
 # set working directory
-setwd("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome")
+setwd("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome")
 
 # attach required packages
 library(qiime2R)
@@ -73,7 +73,7 @@ met_month <- function(XY, meta) {
 # get the data
 print("Read in the Data")
 print("Building phyloseq object")
-ps <- qza_to_phyloseq(features = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/filtered-table-10.qza",
+ps <- qza_to_phyloseq(features = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/ASV-table-10-filtered.qza",
                       tree = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/trees/rooted_tree.qza",
                       metadata = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/input/RS_meta.tsv") %>%
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), phy_tree(.), sample_data(.))
@@ -94,7 +94,7 @@ OTUclr <- codaSeq.clr(OTUimp)
 ## Core and non-core divide
 print("Extract Core")
 # find OTUs with at least one occurrence in 95% of samples
-cOTU <- read.csv("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/data/core.csv") %>%
+cOTU <- read.csv("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/data/core.csv") %>%
   # get the OTUs identified as core contributors to beta diversity
   .[which(.$fill == "core"),] %>%
   # subset these ones to high occupancy OTUs
@@ -166,7 +166,7 @@ vp_mod1_list <- mapply(varpart, commCore, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/core_LL2008_vp_mod1M.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_LL2008_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -211,7 +211,7 @@ print("ANOVA on full environmental selection - core OTUs")
 lapply(step.env, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/core_LL2008_step_envM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_LL2008_step_envM.pdf")
 # make plot
 lapply(step.env, plot)
 dev.off()
@@ -233,7 +233,7 @@ print("ANOVA on full spatial selection - core OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/core_LL2008_step_spaceM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_LL2008_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
@@ -258,7 +258,7 @@ vp_mod1_list <- mapply(varpart, commNC, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/nc_LL2008_vp_mod1M.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_LL2008_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -306,7 +306,7 @@ print("ANOVA on full environmental selection - non-core OTUs")
 lapply(step.env, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/nc_LL2008_step_envM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_LL2008_step_envM.pdf")
 # make plot
 lapply(step.env, plot)
 dev.off()
@@ -329,7 +329,7 @@ print("ANOVA on full spatial selection - non-core OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/nc_LL2008_step_spaceM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_LL2008_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
@@ -353,7 +353,7 @@ vp_mod1_list <- mapply(varpart, commFull, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/LL2008_vp_mod1M.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/LL2008_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -404,7 +404,7 @@ print("ANOVA on full environmental selection - all OTUs")
 lapply(step.env, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/LL2008_step_envM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/LL2008_step_envM.pdf")
 # make plot
 lapply(step.env, plot)
 dev.off()
@@ -427,7 +427,7 @@ print("ANOVA on full spatial selection - all OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/plots/LL2008_step_spaceM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/LL2008_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
