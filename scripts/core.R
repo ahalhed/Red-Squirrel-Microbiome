@@ -1,4 +1,4 @@
-setwd("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/")
+setwd("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/")
 #if (!requireNamespace("devtools", quietly = TRUE)){install.packages("devtools")}
 #devtools::install_github("jbisanz/qiime2R")
 library(qiime2R)
@@ -8,8 +8,8 @@ library(tidyverse)
 theme_set(theme_bw())
 
 nReads <- 4000                                                            # input dataset needs to be rarified and the rarifaction depth included 
-otu <- read_qza("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/filtered-table-10.qza")$data
-map <- read_q2metadata("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/input/RS_meta.tsv") # this is metadata
+otu <- read_qza("../filtered-table-10.qza")$data
+map <- read_q2metadata("../input/RS_meta.tsv") # this is metadata
 
 otu_PA <- 1*((otu>0)==1)                                               # presence-absence data
 otu_occ <- rowSums(otu_PA)/ncol(otu_PA)                                # occupancy calculation
@@ -110,7 +110,7 @@ occ_abun$Community <- ifelse(occ_abun$otu_occ >= 0.95 & occ_abun$fill == "core",
                              ifelse(occ_abun$otu_occ < 0.95 & occ_abun$fill == "core", "Core Candidate",
                                     "Confirmed Non-core"))
 # add a taxonomy column
-tax <- read_qza("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/taxonomy/SILVA-taxonomy-10.qza")$data %>%
+tax <- read_qza("../taxonomy/SILVA-taxonomy-10.qza")$data %>%
   rename("otu" = "Feature.ID")
 # clean up/separatee taxonomy labels
 tax$Taxon <- tax$Taxon %>%
