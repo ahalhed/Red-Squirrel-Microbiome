@@ -4,6 +4,7 @@
 #SBATCH --mem-per-cpu 8G
 #SBATCH --job-name=KL09-month
 #SBATCH --output=./outputs/%x-%j.out
+#SBATCH --dependency=afterok:52917595
 
 #---
 #title: "PCNM for Squirrel Microbiome (SHARCNET)"
