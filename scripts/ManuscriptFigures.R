@@ -1,14 +1,14 @@
 #---
 #title: "Squirrel Manuscript Figures"
 #author: "Alicia Halhed"
-#date: "21/01/2021"
+#date: "10/04/2021"
 #output: html_document
 #---
 # set working directory to output the plots into
 # run on graham cluster interactively
 # salloc --time=0-00:30:00 --mem=8G --account=def-cottenie
 # module load nixpkgs/16.09 gcc/7.3.0 r/3.6.0
-setwd("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/")
+setwd("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/")
 # attaching required packages for full analysis
 # qiime2R to create phyloseq object
 library(phyloseq)
@@ -98,13 +98,13 @@ XY_month <- function(metadata, grid, year, month) {
 ## get the data
 print("Read in the Data")
 print("Building phyloseq object")
-ps <- qza_to_phyloseq(features = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/filtered-table-10.qza",
-                      tree = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/trees/rooted_tree.qza",
-                      metadata = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/input/RS_meta.tsv") %>%
+ps <- qza_to_phyloseq(features = "../filtered-table-10.qza",
+                      tree = "../trees/rooted_tree.qza",
+                      metadata = "../input/RS_meta.tsv") %>%
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), phy_tree(.), sample_data(.))
 # taxonomy only
 # phyloseq didn't like the initial labelling from SILVA
-tax <- read_qza("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/taxonomy/SILVA-taxonomy-10.qza")$data %>%
+tax <- read_qza("../taxonomy/SILVA-taxonomy-10.qza")$data %>%
   column_to_rownames(var = "Feature.ID")
 # so I'm correcting that here to make it work
 tax$Taxon <- tax$Taxon %>%

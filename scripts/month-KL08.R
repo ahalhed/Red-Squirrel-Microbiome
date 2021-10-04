@@ -73,9 +73,9 @@ met_month <- function(XY, meta) {
 # get the data
 print("Read in the Data")
 print("Building phyloseq object")
-ps <- qza_to_phyloseq(features = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/ASV-table-10-filtered.qza",
-                      tree = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/trees/rooted_tree.qza",
-                      metadata = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/input/RS_meta.tsv") %>%
+ps <- qza_to_phyloseq(features = "../ASV-table-10-filtered.qza",
+                      tree = "../trees/rooted_tree.qza",
+                      metadata = "../input/RS_meta.tsv") %>%
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), phy_tree(.), sample_data(.))
 # based on the meta function from the microbiome package
 # I don't want to load a whole package for one function
@@ -94,7 +94,7 @@ OTUclr <- codaSeq.clr(OTUimp)
 ## Core and non-core divide
 print("Extract Core")
 # find OTUs with at least one occurrence in 95% of samples
-cOTU <- read.csv("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/data/core.csv") %>%
+cOTU <- read.csv("data/core.csv") %>%
   # get the OTUs identified as core contributors to beta diversity
   .[which(.$fill == "core"),] %>%
   # subset these ones to high occupancy OTUs
@@ -167,7 +167,7 @@ vp_mod1_list <- mapply(varpart, commCore, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_KL2008_vp_mod1M.pdf")
+pdf(file = "plots/core_KL2008_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -212,7 +212,7 @@ print("ANOVA on full environmental selection - core OTUs")
 lapply(step.env, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_KL2008_step_envM.pdf")
+pdf(file = "plots/core_KL2008_step_envM.pdf")
 # make plot
 lapply(step.env, plot)
 dev.off()
@@ -234,7 +234,7 @@ print("ANOVA on full spatial selection - core OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_KL2008_step_spaceM.pdf")
+pdf(file = "plots/core_KL2008_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
@@ -259,7 +259,7 @@ vp_mod1_list <- mapply(varpart, commNC, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_KL2008_vp_mod1M.pdf")
+pdf(file = "plots/nc_KL2008_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -307,7 +307,7 @@ print("ANOVA on full environmental selection - non-core OTUs")
 lapply(step.env, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_KL2008_step_envM.pdf")
+pdf(file = "plots/nc_KL2008_step_envM.pdf")
 # make plot
 lapply(step.env, plot)
 dev.off()
@@ -330,7 +330,7 @@ print("ANOVA on full spatial selection - non-core OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_KL2008_step_spaceM.pdf")
+pdf(file = "plots/nc_KL2008_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
@@ -354,7 +354,7 @@ vp_mod1_list <- mapply(varpart, commFull, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/KL2008_vp_mod1M.pdf")
+pdf(file = "plots/KL2008_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -405,7 +405,7 @@ print("ANOVA on full environmental selection - all OTUs")
 lapply(step.env, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/KL2008_step_envM.pdf")
+pdf(file = "plots/KL2008_step_envM.pdf")
 # make plot
 lapply(step.env, plot)
 dev.off()
@@ -428,7 +428,7 @@ print("ANOVA on full spatial selection - all OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/KL2008_step_spaceM.pdf")
+pdf(file = "plots/KL2008_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
