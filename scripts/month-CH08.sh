@@ -8,15 +8,14 @@
 #---
 #title: "PCNM for Squirrel Microbiome (SHARCNET)"
 #author: "Alicia Halhed"
-#date: "05/22/2020"
+#date: "10/04/2021"
 
 #script starts here
 #---
 
 #set up
-# cd /home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome
+# cd /home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome
 module load nixpkgs/16.09 gcc/7.3.0 r/3.6.0
 
 # run R script
-# replace AG08 with specific grid/year combo being run
-Rscript /home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/R-env/RedSquirrelMicrobiome/scripts/month-CH08.R
+Rscript /home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/scripts/month-CH08.R
