@@ -16,3 +16,6 @@ This is vegan 2.5-6
 ✖ dplyr::lag()    masks stats::lag()
 `summarise()` regrouping output by 'otu' (override with `.groups` argument)
 `summarise()` ungrouping output (override with `.groups` argument)
+`summarise()` ungrouping output (override with `.groups` argument)
+Joining, by = "rank"
+Joining, by = "otu"
