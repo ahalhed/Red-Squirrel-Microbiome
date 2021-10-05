@@ -8,7 +8,7 @@ library(tidyverse)
 theme_set(theme_bw())
 
 nReads <- 4000                                                            # input dataset needs to be rarified and the rarifaction depth included 
-otu <- read_qza("../filtered-table-10.qza")$data
+otu <- read_qza("../ASV-table-10-filtered.qza")$data
 map <- read_q2metadata("../input/RS_meta.tsv") # this is metadata
 
 otu_PA <- 1*((otu>0)==1)                                               # presence-absence data
