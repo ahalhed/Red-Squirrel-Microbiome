@@ -1,0 +1,22 @@
+Unloading StdEnv/2020
+
+The following have been reloaded with a version change:
+  1) gcccore/.9.3.0 => gcccore/.7.3.0     2) imkl/2020.1.217 => imkl/2018.3.222
+
+[1] "Set up (working directory, theme, and packages)"
+Loading required package: permute
+Loading required package: lattice
+This is vegan 2.5-6
+Loading required package: MASS
+Loading required package: NADA
+Loading required package: survival
+
+Attaching package: ‘NADA’
+
+The following object is masked from ‘package:stats’:
+
+    cor
+
+Loading required package: truncnorm
+Loading required package: ALDEx2
+slurmstepd: error: *** JOB 52947911 ON gra738 CANCELLED AT 2021-10-05T08:49:28 ***
