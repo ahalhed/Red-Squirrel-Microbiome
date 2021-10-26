@@ -84,15 +84,12 @@ rownames(rs_q2_metadata) <- sample_names(ps)
 
 # example in https://github.com/ggloor/CoDaSeq/blob/master/Intro_tiger_ladybug.Rmd
 print("Aitchison transformation")
-# remove rows with single ob
-checkNumZerosCol <- apply(otu_table(ps),2,function(x) sum(x==0))
-cases <- which(checkNumZerosCol == (nrow(otu_table(ps)) - 1))
-length(cases)
 # rows are OTUs, then transposed to OTUs as column
 # impute the OTU table
-OTUimp <- cmultRepl(otu_table(ps)[,-cases], label=0, method="CZM") # all OTUs
-# compute the aitchison values
-OTUclr <- codaSeq.clr(OTUimp)
+OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM", output="p-counts") # all OTUs
+
+# compute the aitchison values with absolute values
+OTUclr <- codaSeq.clr(abs(OTUimp))
 
 ## Core and non-core divide
 print("Extract Core")
@@ -100,10 +97,7 @@ print("Extract Core")
 cOTU <- read.csv("data/core.csv") %>%
   # get the OTUs identified as core contributors to beta diversity
   .[which(.$fill == "core"),]
-<<<<<<< Updated upstream
-=======
-cOTU$otu <- levels(droplevels(cOTU$otu)) # drop unused levels of OTU
->>>>>>> Stashed changes
+
 # make the new data frames
 print("Subset the OTU table to find core and non-core OTUs")
 OTU_core <- select(as.data.frame(OTUclr), one_of(cOTU$otu))
@@ -148,8 +142,6 @@ met_list <- lapply(XY_list, met_month, meta=rs_q2_metadata)
 print("Removing pobjects that are no longer needed")
 rm(rs_q2_metadata, cOTU, OTUclr, ps, OTU_core, OTU_nc)
 # not removing the Months because they're small and not the same across all
-
-
 
 ## Analysis time!
 # unweighted PCNM
@@ -199,27 +191,27 @@ lapply(aFrac, anova, step=200, perm.max=1000)
 # RsquareAdj gives the same result as component [a] of varpart
 lapply(aFrac, RsquareAdj)
 
-# forward selection for parsimonious model
-print("Forward selection for parsimonious model - core OTUs")
-# env variables
-print("Environmental variables - core OTUs")
-# create a tiny anonymous function to include formula syntax in call
-abFrac0 <- mapply(function(x,data) rda(x~1, data), 
-                  commCore, met_list, SIMPLIFY=FALSE) # Reduced model
-step.env <- mapply(function(x,y) ordiR2step(x, scope = formula(y)), 
-                   abFrac0, abFrac, SIMPLIFY=FALSE)
-step.env # an rda model, with the final model predictor variables
-
-print("Summary of environmental selection process - core OTUs")
-lapply(step.env, function(x) x$anova)
-print("ANOVA on full environmental selection - core OTUs")
-lapply(step.env, anova)
-
-# save plot
-pdf(file = "plots/core_AG2008_step_envM.pdf")
-# make plot
-lapply(step.env, plot)
-dev.off()
+# # forward selection for parsimonious model
+# print("Forward selection for parsimonious model - core OTUs")
+# # env variables
+# print("Environmental variables - core OTUs")
+# # create a tiny anonymous function to include formula syntax in call
+# abFrac0 <- mapply(function(x,data) rda(x~1, data), 
+#                   commCore, met_list, SIMPLIFY=FALSE) # Reduced model
+# step.env <- mapply(function(x,y) ordiR2step(x, scope = formula(y)), 
+#                    abFrac0, abFrac, SIMPLIFY=FALSE)
+# step.env # an rda model, with the final model predictor variables
+# 
+# print("Summary of environmental selection process - core OTUs")
+# lapply(step.env, function(x) x$anova)
+# print("ANOVA on full environmental selection - core OTUs")
+# lapply(step.env, anova)
+# 
+# # save plot
+# pdf(file = "plots/core_AG2008_step_envM.pdf")
+# # make plot
+# lapply(step.env, plot)
+# dev.off()
 
 # spatial variables
 print("Spatial variables - core OTU")
@@ -252,7 +244,7 @@ pbcd
 #cleanup
 # remove objects to be replaced/no longer needed
 rm(vdist,pbcd, commCore)
-rm(abFrac, aFrac,abFrac0, step.env, pcnm_df, bcFrac, bcFrac0, step.space)
+rm(abFrac, aFrac,abFrac0, pcnm_df, bcFrac, bcFrac0, step.space) #step.env, 
 
 
 # non-core OTUs
@@ -293,28 +285,28 @@ lapply(aFrac, anova, step=200, perm.max=1000)
 # RsquareAdj gives the same result as component [a] of varpart
 lapply(aFrac, RsquareAdj)
 
-# forward selection for parsimonious model
-print("Forward selection for parsimonious model - non-core OTUs")
-# env variables
-print("Environmental variables - non-core OTUs")
-# create a tiny anonymous function to include formula syntax in call
-abFrac0 <- mapply(function(x,data) rda(x~1, data), 
-                  commNC, met_list, SIMPLIFY=FALSE) # Reduced model
-
-step.env <- mapply(function(x,y) ordiR2step(x, scope = formula(y)), 
-                   abFrac0, abFrac, SIMPLIFY=FALSE)
-step.env # an rda model, with the final model predictor variables
-
-print("Summary of environmental selection process - non-core OTUs")
-lapply(step.env, function(x) x$anova)
-print("ANOVA on full environmental selection - non-core OTUs")
-lapply(step.env, anova)
-
-# save plot
-pdf(file = "plots/nc_AG2008_step_envM.pdf")
-# make plot
-lapply(step.env, plot)
-dev.off()
+# # forward selection for parsimonious model
+# print("Forward selection for parsimonious model - non-core OTUs")
+# # env variables
+# print("Environmental variables - non-core OTUs")
+# # create a tiny anonymous function to include formula syntax in call
+# abFrac0 <- mapply(function(x,data) rda(x~1, data), 
+#                   commNC, met_list, SIMPLIFY=FALSE) # Reduced model
+# 
+# step.env <- mapply(function(x,y) ordiR2step(x, scope = formula(y)), 
+#                    abFrac0, abFrac, SIMPLIFY=FALSE)
+# step.env # an rda model, with the final model predictor variables
+# 
+# print("Summary of environmental selection process - non-core OTUs")
+# lapply(step.env, function(x) x$anova)
+# print("ANOVA on full environmental selection - non-core OTUs")
+# lapply(step.env, anova)
+# 
+# # save plot
+# pdf(file = "plots/nc_AG2008_step_envM.pdf")
+# # make plot
+# lapply(step.env, plot)
+# dev.off()
 
 # spatial variables
 print("Spatial variables - non-core OTU")
@@ -348,7 +340,7 @@ pbcd
 #cleanup
 # remove objects to be replaced
 rm(vdist, pbcd, commNC)
-rm(abFrac, aFrac,abFrac0, step.env, pcnm_df, bcFrac, bcFrac0, step.space)
+rm(abFrac, aFrac,abFrac0, pcnm_df, bcFrac, bcFrac0, step.space) #step.env, 
 
 # analysis for all OTUs
 print("Analysis for All OTUs")
@@ -392,27 +384,27 @@ lapply(aFrac, RsquareAdj)
 # forward selection for parsimonious model
 print("Forward selection for parsimonious model - all OTUs")
 
-# env variables
-print("Environmental variables - all OTUs")
-# create a tiny anonymous function to include formula syntax in call
-abFrac0 <- mapply(function(x,data) rda(x~1, data), 
-                  commFull, met_list, SIMPLIFY=FALSE) # Reduced model
-
-step.env <- mapply(function(x,y) ordiR2step(x, scope = formula(y)), 
-                   abFrac0, abFrac, SIMPLIFY=FALSE)
-
-step.env # an rda model, with the final model predictor variables
-
-print("Summary of environmental selection process - all OTUs")
-lapply(step.env, function(x) x$anova)
-print("ANOVA on full environmental selection - all OTUs")
-lapply(step.env, anova)
-
-# save plot
-pdf(file = "plots/AG2008_step_envM.pdf")
-# make plot
-lapply(step.env, plot)
-dev.off()
+# # env variables
+# print("Environmental variables - all OTUs")
+# # create a tiny anonymous function to include formula syntax in call
+# abFrac0 <- mapply(function(x,data) rda(x~1, data), 
+#                   commFull, met_list, SIMPLIFY=FALSE) # Reduced model
+# 
+# step.env <- mapply(function(x,y) ordiR2step(x, scope = formula(y)), 
+#                    abFrac0, abFrac, SIMPLIFY=FALSE)
+# 
+# step.env # an rda model, with the final model predictor variables
+# 
+# print("Summary of environmental selection process - all OTUs")
+# lapply(step.env, function(x) x$anova)
+# print("ANOVA on full environmental selection - all OTUs")
+# lapply(step.env, anova)
+# 
+# # save plot
+# pdf(file = "plots/AG2008_step_envM.pdf")
+# # make plot
+# lapply(step.env, plot)
+# dev.off()
 
 # spatial variables
 print("Spatial variables - all OTU")
@@ -446,7 +438,7 @@ pbcd
 #cleanup
 # remove objects to be replaced/no longer needed
 rm(vdist,pbcd, commFull)
-rm(abFrac, aFrac,abFrac0, step.env, pcnm_df, bcFrac, bcFrac0, step.space)
+rm(abFrac, aFrac,abFrac0, pcnm_df, bcFrac, bcFrac0, step.space) #step.env,
 
 # I have removed the variation decomposition with parsimonious variables, 
 # since it was frequently failing and would likely cause issues.

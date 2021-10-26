@@ -106,8 +106,8 @@ lastCall <- last(as.numeric(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.02)]))
 occ_abun$fill <- 'no'
 occ_abun$fill[occ_abun$otu %in% otu_ranked$otu[1:last(as.numeric(BC_ranked$rank[(BC_ranked$IncreaseBC>=1.02)]))]] <- 'core'
 # add 95% occupancy threshold for core
-occ_abun$Community <- ifelse(occ_abun$otu_occ >= 0.95 & occ_abun$fill == "core", "Confirmed Core",
-                             ifelse(occ_abun$otu_occ < 0.95 & occ_abun$fill == "core", "Core Candidate",
+occ_abun$Community <- ifelse(occ_abun$otu_occ >= 0.75 & occ_abun$fill == "core", "Confirmed Core",
+                             ifelse(occ_abun$otu_occ < 0.75 & occ_abun$fill == "core", "Core Candidate",
                                     "Confirmed Non-core"))
 # add a taxonomy column
 tax <- read_qza("../taxonomy/SILVA-taxonomy-10.qza")$data %>%
