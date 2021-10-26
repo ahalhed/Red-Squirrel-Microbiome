@@ -96,9 +96,7 @@ print("Extract Core")
 # find OTUs with at least one occurrence in 95% of samples
 cOTU <- read.csv("data/core.csv") %>%
   # get the OTUs identified as core contributors to beta diversity
-  .[which(.$fill == "core"),] %>%
-  # subset these ones to high occupancy OTUs
-  .[which(.$otu_occ > 0.95),]
+  .[which(.$fill == "core"),]
 # make the new data frames
 print("Subset the OTU table to find core and non-core OTUs")
 OTU_core <- OTUclr[, cOTU$otu]
