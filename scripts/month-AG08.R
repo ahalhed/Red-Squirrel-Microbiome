@@ -74,9 +74,8 @@ met_month <- function(XY, meta) {
 print("Read in the Data")
 print("Building phyloseq object")
 ps <- qza_to_phyloseq(features = "../ASV-table-10-filtered.qza",
-                      tree = "../trees/rooted_tree.qza",
                       metadata = "../input/RS_meta.tsv") %>%
-  phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), phy_tree(.), sample_data(.))
+  phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), sample_data(.))
 # based on the meta function from the microbiome package
 # I don't want to load a whole package for one function
 print("Read in the metadata")
@@ -85,21 +84,29 @@ rownames(rs_q2_metadata) <- sample_names(ps)
 
 # example in https://github.com/ggloor/CoDaSeq/blob/master/Intro_tiger_ladybug.Rmd
 print("Aitchison transformation")
+# remove rows with single ob
+checkNumZerosCol <- apply(otu_table(ps),2,function(x) sum(x==0))
+cases <- which(checkNumZerosCol == (nrow(otu_table(ps)) - 1))
+length(cases)
 # rows are OTUs, then transposed to OTUs as column
 # impute the OTU table
-OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM") # all OTUs
+OTUimp <- cmultRepl(otu_table(ps)[,-cases], label=0, method="CZM") # all OTUs
 # compute the aitchison values
 OTUclr <- codaSeq.clr(OTUimp)
 
 ## Core and non-core divide
 print("Extract Core")
-# find OTUs with at least one occurrence in 95% of samples
+# core OTUs
 cOTU <- read.csv("data/core.csv") %>%
   # get the OTUs identified as core contributors to beta diversity
   .[which(.$fill == "core"),]
+<<<<<<< Updated upstream
+=======
+cOTU$otu <- levels(droplevels(cOTU$otu)) # drop unused levels of OTU
+>>>>>>> Stashed changes
 # make the new data frames
 print("Subset the OTU table to find core and non-core OTUs")
-OTU_core <- OTUclr[, cOTU$otu]
+OTU_core <- select(as.data.frame(OTUclr), one_of(cOTU$otu))
 OTU_nc <- select(as.data.frame(OTUclr), -one_of(cOTU$otu))
 
 ## XY data
