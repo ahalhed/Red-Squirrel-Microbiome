@@ -163,7 +163,7 @@ vp_mod1_list <- mapply(varpart, commCore, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "plots/core_KL2010_vp_mod1M.pdf")
+pdf(file = "./plots/core_KL2010_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -208,7 +208,7 @@ lapply(aFrac, RsquareAdj)
 # lapply(step.env, anova)
 # 
 # # save plot
-# pdf(file = "plots/core_KL2010_step_envM.pdf")
+# pdf(file = "./plots/core_KL2010_step_envM.pdf")
 # # make plot
 # lapply(step.env, plot)
 # dev.off()
@@ -230,7 +230,7 @@ print("ANOVA on full spatial selection - core OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "plots/core_KL2010_step_spaceM.pdf")
+pdf(file = "./plots/core_KL2010_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
@@ -255,7 +255,7 @@ vp_mod1_list <- mapply(varpart, commNC, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "plots/nc_KL2010_vp_mod1M.pdf")
+pdf(file = "./plots/nc_KL2010_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -303,7 +303,7 @@ lapply(aFrac, RsquareAdj)
 # lapply(step.env, anova)
 # 
 # # save plot
-# pdf(file = "plots/nc_KL2010_step_envM.pdf")
+# pdf(file = "./plots/nc_KL2010_step_envM.pdf")
 # # make plot
 # lapply(step.env, plot)
 # dev.off()
@@ -326,7 +326,7 @@ print("ANOVA on full spatial selection - non-core OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "plots/nc_KL2010_step_spaceM.pdf")
+pdf(file = "./plots/nc_KL2010_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
@@ -350,7 +350,7 @@ vp_mod1_list <- mapply(varpart, commFull, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "plots/KL2010_vp_mod1M.pdf")
+pdf(file = "./plots/KL2010_vp_mod1M.pdf")
 # make plot
 # plotted in numerical order by month
 lapply(vp_mod1_list, plot)
@@ -401,7 +401,7 @@ print("Forward selection for parsimonious model - all OTUs")
 # lapply(step.env, anova)
 # 
 # # save plot
-# pdf(file = "plots/KL2010_step_envM.pdf")
+# pdf(file = "./plots/KL2010_step_envM.pdf")
 # # make plot
 # lapply(step.env, plot)
 # dev.off()
@@ -424,7 +424,7 @@ print("ANOVA on full spatial selection - all OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "plots/KL2010_step_spaceM.pdf")
+pdf(file = "./plots/KL2010_step_spaceM.pdf")
 # make plot
 lapply(step.space, plot)
 dev.off()
