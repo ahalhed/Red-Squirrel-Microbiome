@@ -163,11 +163,11 @@ vp_mod1_list <- mapply(varpart, commCore, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "./plots/core_AG2008_vp_mod1M.pdf")
-# make plot
-# plotted in numerical order by month
-lapply(vp_mod1_list, plot)
-dev.off()
+# pdf(file = "/plots/core_AG2008_vp_mod1M.pdf")
+# # make plot
+# # plotted in numerical order by month
+# lapply(vp_mod1_list, plot)
+# dev.off()
 #remove vp object, to repeat with new OTU table
 rm(vp_mod1_list)
 
@@ -230,10 +230,10 @@ print("ANOVA on full spatial selection - core OTU")
 lapply(step.space, anova)
 
 # save plot
-pdf(file = "./plots/core_AG2008_step_spaceM.pdf")
-# make plot
-lapply(step.space, plot)
-dev.off()
+# pdf(file = "./plots/core_AG2008_step_spaceM.pdf")
+# # make plot
+# lapply(step.space, plot)
+# dev.off()
 
 print("Partition Bray-Curtis dissimilarities - core OTUs")
 vdist <- lapply(commCore, vegdist)
@@ -255,11 +255,11 @@ vp_mod1_list <- mapply(varpart, commNC, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "./plots/nc_AG2008_vp_mod1M.pdf")
-# make plot
-# plotted in numerical order by month
-lapply(vp_mod1_list, plot)
-dev.off()
+# pdf(file = "./plots/nc_AG2008_vp_mod1M.pdf")
+# # make plot
+# # plotted in numerical order by month
+# lapply(vp_mod1_list, plot)
+# dev.off()
 #remove vp object, to repeat with new OTU table
 rm(vp_mod1_list)
 
@@ -325,11 +325,11 @@ lapply(step.space, function(x) x$anova)
 print("ANOVA on full spatial selection - non-core OTU")
 lapply(step.space, anova)
 
-# save plot
-pdf(file = "./plots/nc_AG2008_step_spaceM.pdf")
-# make plot
-lapply(step.space, plot)
-dev.off()
+# # save plot
+# pdf(file = "./plots/nc_AG2008_step_spaceM.pdf")
+# # make plot
+# lapply(step.space, plot)
+# dev.off()
 
 print("Partition Bray-Curtis dissimilarities - non-core OTUs")
 vdist <- lapply(commNC, vegdist)
@@ -350,11 +350,11 @@ vp_mod1_list <- mapply(varpart, commFull, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # plot the partitioning
-pdf(file = "./plots/AG2008_vp_mod1M.pdf")
-# make plot
-# plotted in numerical order by month
-lapply(vp_mod1_list, plot)
-dev.off()
+# pdf(file = "./plots/AG2008_vp_mod1M.pdf")
+# # make plot
+# # plotted in numerical order by month
+# lapply(vp_mod1_list, plot)
+# dev.off()
 #remove vp object, done with it now
 rm(vp_mod1_list)
 
@@ -423,11 +423,11 @@ lapply(step.space, function(x) x$anova)
 print("ANOVA on full spatial selection - all OTU")
 lapply(step.space, anova)
 
-# save plot
-pdf(file = "./plots/AG2008_step_spaceM.pdf")
-# make plot
-lapply(step.space, plot)
-dev.off()
+# # save plot
+# pdf(file = "./plots/AG2008_step_spaceM.pdf")
+# # make plot
+# lapply(step.space, plot)
+# dev.off()
 
 print("Partition Bray-Curtis dissimilarities - all OTUs")
 vdist <- lapply(commFull, vegdist)
