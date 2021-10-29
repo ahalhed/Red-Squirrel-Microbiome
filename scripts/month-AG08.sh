@@ -1,10 +1,9 @@
 #!/bin/bash
 #SBATCH --account=def-cottenie
-#SBATCH --time=0-01:00:00
+#SBATCH --time=0-02:00:00
 #SBATCH --mem-per-cpu 8G
 #SBATCH --job-name=AG08-month
 #SBATCH --output=./outputs/%x-%j.out
-#SBATCH --dependency=afterok:52947825
 
 #---
 #title: "PCNM for Squirrel Microbiome (SHARCNET)"
