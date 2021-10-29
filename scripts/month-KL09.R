@@ -96,7 +96,7 @@ print("Extract Core")
 # core OTUs
 cOTU <- read.csv("data/core.csv") %>%
   # get the OTUs identified as core contributors to beta diversity
-  .[which(.$fill == "core"),]
+  .[which(.$Community == "Confirmed Core"),]
 
 # make the new data frames
 print("Subset the OTU table to find core and non-core OTUs")
