@@ -98,37 +98,9 @@ XY_month <- function(metadata, grid, year, month) {
 ## get the data
 print("Read in the Data")
 print("Building phyloseq object")
-ps <- qza_to_phyloseq(features = "../filtered-table-10.qza",
-                      tree = "../trees/rooted_tree.qza",
+ps <- qza_to_phyloseq(features = "../ASV-table-10-filtered.qza",
                       metadata = "../input/RS_meta.tsv") %>%
-  phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), phy_tree(.), sample_data(.))
-# taxonomy only
-# phyloseq didn't like the initial labelling from SILVA
-tax <- read_qza("../taxonomy/SILVA-taxonomy-10.qza")$data %>%
-  column_to_rownames(var = "Feature.ID")
-# so I'm correcting that here to make it work
-tax$Taxon <- tax$Taxon %>%
-  str_replace_all("D_0__", "k__") %>%
-  str_replace_all("D_1__", "p__") %>%
-  str_replace_all("D_2__", "c__") %>%
-  str_replace_all("D_3__", "o__") %>%
-  str_replace_all("D_4__", "f__") %>%
-  str_replace_all("D_5__", "g__") %>%
-  str_replace_all("D_6__", "s__")
-tax1 <- tax %>% 
-  mutate("Kingdom" = word(.$Taxon, 1, sep = ";"), #k__
-         "Phylum" = word(.$Taxon, 2, sep = ";"), #p__
-         "Class" = word(.$Taxon, 3, sep = ";"), #c__
-         "Order" = word(.$Taxon, 4, sep = ";"), #o__
-         "Family" = word(.$Taxon, 5, sep = ";"), #f__
-         "Genus" = word(.$Taxon, 6, sep = ";"), #g__
-         "Species" = word(.$Taxon, 7, sep = ";")) %>% #s__
-  select(Kingdom, Phylum, Class, Order, Family, Genus, Species)
-# making the modified Q2 artifact into a phyloseq tax table
-tax2 <- tax_table(tax1)
-taxa_names(tax2) <- rownames(tax)
-# combining the taxonomy with the data already in the phyloseq object
-ps <- merge_phyloseq(ps, tax2)
+  phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), sample_data(.))
 
 # based on the meta function from the microbiome package
 # I don't want to load a whole package for one function
@@ -140,28 +112,24 @@ print("Full OTU table")
 print("Aitchison transformation")
 # rows are OTUs, then transposed to OTUs as column
 # impute the OTU table
-OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM") # all OTUs
+OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM", output="p-counts") # all OTUs
 # compute the aitchison values
-OTU_full <- codaSeq.clr(OTUimp) %>% as.data.frame
+OTU_full <- codaSeq.clr(abs(OTUimp)) %>% as.data.frame
 
 ## Core/non-core divide
 print("Finding core microbiome")
-print("Extract 95% Occupancy from BC Similarity Core")
+print("Extract 75% Occupancy from BC Similarity Core")
 # read in occupancy/abundance information
 occ_abun <- read.csv("./data/core.csv")
 # new column for just core and non-core
 occ_abun$plot <- ifelse(occ_abun$Community == "Confirmed Core", "Core", "Non-core")
 # get the OTUs identified as core contributors to beta diversity
-# and greater than 95% occupancy (confirmed core)
+# and greater than 75% occupancy (confirmed core)
 cOTU <- occ_abun[which(occ_abun$Community == "Confirmed Core"),]
 # make the new data frames
 print("Subset the OTU table to find core and non-core OTUs")
 OTU_core <- select(OTU_full, one_of(cOTU$otu))
 OTU_nc <- select(OTU_full, -one_of(cOTU$otu))
-
-# Removing objects that are no longer needed
-rm(tax, tax1, tax2)
-
 
 ## Figure 1 - Core Community Cutoff
 # This plot shows the fraction of the OTUs included in the core microbiome
@@ -170,15 +138,15 @@ fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot)) + #, color
   geom_point() +
   # log transform the x axis
   scale_x_log10() +
-  # add 95% threshold
-  annotate("text", x = 0.00001, y = 0.98, label = ">95% Occupancy") +
-  geom_hline(yintercept = 0.95, linetype = "dashed", size = 0.5) +
+  # add 75% threshold
+  annotate("text", x = 0.00001, y = 0.78, label = ">75% Occupancy") +
+  geom_hline(yintercept = 0.75, linetype = "dashed", size = 0.5) +
   # add axis labels
   labs(x = "Mean Relative Abundance of Each OTU (log10)", y = "Occupancy (Proportion of Samples)",
        color = "Community", shape = "Community")
 
 # export plot 1 to a file
-tiff("plots/ManuscriptFigures/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
+tiff("plots/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
 fig1 + theme(text = element_text(size = 20))
 dev.off()
 
@@ -192,7 +160,7 @@ d_AG <- dist(XY_AG)
 AG <- pcnm(d_AG)
 
 # generate figure 2
-tiff("plots/ManuscriptFigures/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
+tiff("plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
 par(mfrow=c(1,4))
 # core
 ordisurf(XY_AG, scores(AG, choi=14), bubble = 4, col = "black", main = "PCNM 14")
@@ -210,30 +178,29 @@ dev.off()
 # values taken from output files from monthly PCNM analyses
 # pivot the data of interest into long format
 adj <- read_csv("./data/Figure3Data.csv")
-adj <- adj[which(adj$Community != "Full"),]
+adj <- adj[which(adj$Community != "Full"),] %>%
+  .[which(.$VariableType != "Host factors"),]
 
 # create plot for all adjusted R2 points
-fig3 <- ggplot(adj, aes(Month, R2Adj, color = Community)) +
+fig3 <- ggplot(adj, aes(Month, as.numeric(R2Adj), color = Community)) +
   geom_smooth(method = "lm", aes(linetype = Community)) + 
   geom_jitter(aes(shape = as.character(Year))) + 
   scale_color_manual(values=c("grey20", "black")) + 
-  facet_grid(~VariableType) +
+  #facet_grid(~VariableType) +
   labs(y = expression(paste("Adjusted R"^"2")), shape = "Collection Year")
 
 # exporting figure 3
-tiff("plots/ManuscriptFigures/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
+tiff("plots/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
 fig3 + theme(text = element_text(size = 20))
 dev.off()
 
 print("is there a significant difference in the R2adj values based on the month and community of origin?")
-print("All Adjusted R-squared Values - both Spatial and Host factors")
-lm(R2Adj ~ VariableType*Community*Month, data = adj) %>% summary
-print("All Adjusted R-squared Values - Host factors Only")
-adj[which(adj$VariableType=="Host factors"),] %>% 
-  lm(R2Adj ~ Community*Month, data = .) %>% summary
 print("All Adjusted R-squared Values - Spatial only")
-adj[which(adj$VariableType=="Spatial"),] %>% 
-  lm(R2Adj ~ Community*Month, data = .) %>% summary
+adj %>% lm(R2Adj ~ Community*Month, data = .) %>% summary
+print("All Adjusted R-squared Values - Core only")
+adj[which(adj$Community=="Core"),] %>% lm(R2Adj ~ Month, data = .) %>% summary
+print("All Adjusted R-squared Values - Non-core only")
+adj[which(adj$Community=="Non-core"),] %>% lm(R2Adj ~ Month, data = .) %>% summary
 
 ## Figure 4 - LOESS regression
 # calculate Aitchison dissimilarity (euclidean distance on CLR transformed OTU table)
@@ -343,12 +310,12 @@ fullYP <- ggplot(linesYF, aes(x = int, y = EucDis, linetype = Location_f)) +
   ggtitle("Full Microbial Community") + theme(text = element_text(size = 20))
 
 # export figure 4
-tiff("plots/ManuscriptFigures/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
+tiff("plots/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
 ggarrange(coreYP, ncYP, labels = c("A", "B"),
           nrow=2, common.legend = T)
 dev.off()
 
 # putting full in a supplemental figure
-tiff("plots/ManuscriptFigures/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
+tiff("plots/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
 fullYP
 dev.off()
