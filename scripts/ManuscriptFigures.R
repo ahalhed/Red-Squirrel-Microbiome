@@ -146,7 +146,7 @@ fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot)) + #, color
        color = "Community", shape = "Community")
 
 # export plot 1 to a file
-tiff("plots/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
 fig1 + theme(text = element_text(size = 20))
 dev.off()
 
@@ -160,7 +160,7 @@ d_AG <- dist(XY_AG)
 AG <- pcnm(d_AG)
 
 # generate figure 2
-tiff("plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
 par(mfrow=c(1,4))
 # core
 ordisurf(XY_AG, scores(AG, choi=14), bubble = 4, col = "black", main = "PCNM 14")
@@ -190,7 +190,7 @@ fig3 <- ggplot(adj, aes(Month, as.numeric(R2Adj), color = Community)) +
   labs(y = expression(paste("Adjusted R"^"2")), shape = "Collection Year")
 
 # exporting figure 3
-tiff("plots/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
 fig3 + theme(text = element_text(size = 20))
 dev.off()
 
@@ -310,12 +310,12 @@ fullYP <- ggplot(linesYF, aes(x = int, y = EucDis, linetype = Location_f)) +
   ggtitle("Full Microbial Community") + theme(text = element_text(size = 20))
 
 # export figure 4
-tiff("plots/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
 ggarrange(coreYP, ncYP, labels = c("A", "B"),
           nrow=2, common.legend = T)
 dev.off()
 
 # putting full in a supplemental figure
-tiff("plots/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
 fullYP
 dev.off()

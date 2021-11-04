@@ -163,11 +163,11 @@ vp_mod1_list <- mapply(varpart, commCore, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # # plot the partitioning
-# pdf(file = "./plots/core_KL2009_vp_mod1M.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_KL2009_vp_mod1M.pdf")
 # # make plot
 # # plotted in numerical order by month
-# lapply(vp_mod1_list, plot)
-# dev.off()
+lapply(vp_mod1_list, plot)
+dev.off()
 #remove vp object, to repeat with new OTU table
 rm(vp_mod1_list)
 
@@ -208,7 +208,7 @@ lapply(aFrac, RsquareAdj)
 # lapply(step.env, anova)
 # 
 # # save plot
-# pdf(file = "./plots/core_KL2009_step_envM.pdf")
+# pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_KL2009_step_envM.pdf")
 # # make plot
 # lapply(step.env, plot)
 # dev.off()
@@ -230,10 +230,10 @@ print("ANOVA on full spatial selection - core OTU")
 lapply(step.space, anova)
 
 # # save plot
-# pdf(file = "./plots/core_KL2009_step_spaceM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/core_KL2009_step_spaceM.pdf")
 # # make plot
-# lapply(step.space, plot)
-# dev.off()
+lapply(step.space, plot)
+dev.off()
 
 print("Partition Bray-Curtis dissimilarities - core OTUs")
 vdist <- lapply(commCore, vegdist)
@@ -255,11 +255,11 @@ vp_mod1_list <- mapply(varpart, commNC, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # # plot the partitioning
-# pdf(file = "./plots/nc_KL2009_vp_mod1M.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_KL2009_vp_mod1M.pdf")
 # # make plot
 # # plotted in numerical order by month
-# lapply(vp_mod1_list, plot)
-# dev.off()
+lapply(vp_mod1_list, plot)
+dev.off()
 #remove vp object, to repeat with new OTU table
 rm(vp_mod1_list)
 
@@ -303,7 +303,7 @@ lapply(aFrac, RsquareAdj)
 # lapply(step.env, anova)
 # 
 # # save plot
-# pdf(file = "./plots/nc_KL2009_step_envM.pdf")
+# pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_KL2009_step_envM.pdf")
 # # make plot
 # lapply(step.env, plot)
 # dev.off()
@@ -326,10 +326,10 @@ print("ANOVA on full spatial selection - non-core OTU")
 lapply(step.space, anova)
 
 # # save plot
-# pdf(file = "./plots/nc_KL2009_step_spaceM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/nc_KL2009_step_spaceM.pdf")
 # # make plot
-# lapply(step.space, plot)
-# dev.off()
+lapply(step.space, plot)
+dev.off()
 
 print("Partition Bray-Curtis dissimilarities - non-core OTUs")
 vdist <- lapply(commNC, vegdist)
@@ -350,11 +350,11 @@ vp_mod1_list <- mapply(varpart, commFull, scores_list, data=met_list,
                        SIMPLIFY = FALSE)
 vp_mod1_list
 # # plot the partitioning
-# pdf(file = "./plots/KL2009_vp_mod1M.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/KL2009_vp_mod1M.pdf")
 # # make plot
 # # plotted in numerical order by month
-# lapply(vp_mod1_list, plot)
-# dev.off()
+lapply(vp_mod1_list, plot)
+dev.off()
 #remove vp object, done with it now
 rm(vp_mod1_list)
 
@@ -401,7 +401,7 @@ print("Forward selection for parsimonious model - all OTUs")
 # lapply(step.env, anova)
 # 
 # # save plot
-# pdf(file = "./plots/KL2009_step_envM.pdf")
+# pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/KL2009_step_envM.pdf")
 # # make plot
 # lapply(step.env, plot)
 # dev.off()
@@ -424,10 +424,10 @@ print("ANOVA on full spatial selection - all OTU")
 lapply(step.space, anova)
 
 # # save plot
-# pdf(file = "./plots/KL2009_step_spaceM.pdf")
+pdf(file = "/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/KL2009_step_spaceM.pdf")
 # # make plot
-# lapply(step.space, plot)
-# dev.off()
+lapply(step.space, plot)
+dev.off()
 
 print("Partition Bray-Curtis dissimilarities - all OTUs")
 vdist <- lapply(commFull, vegdist)
@@ -435,10 +435,6 @@ pbcd <- mapply(function(x,y,z) varpart(x, ~., y, data = z),
                vdist, scores_list, met_list, SIMPLIFY=FALSE)
 pbcd
 
-#cleanup
 # remove objects to be replaced/no longer needed
 rm(vdist,pbcd, commFull)
 rm(abFrac, aFrac,abFrac0, pcnm_df, bcFrac, bcFrac0, step.space) #step.env,
-
-# I have removed the variation decomposition with parsimonious variables, 
-# since it was frequently failing and would likely cause issues.
