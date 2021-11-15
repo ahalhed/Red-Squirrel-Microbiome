@@ -151,25 +151,25 @@ fig1 + theme(text = element_text(size = 20))
 dev.off()
 
 ## Figure 2 - spatial pattern example
-## AG 2008
+## KL 2008, June
 # get XY data
-XY_AG <- XY_month(meta, "AG", 2008, 5)
+XY_KL <- XY_month(meta, "KL", 2008, 6)
 # euclidean distances
-d_AG <- dist(XY_AG)
+d_KL <- dist(XY_KL)
 # PCNM
-AG <- pcnm(d_AG)
+KL <- pcnm(d_KL)
 
 # generate figure 2
 tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
 par(mfrow=c(1,4))
 # core
-ordisurf(XY_AG, scores(AG, choi=14), bubble = 4, col = "black", main = "PCNM 14")
+ordisurf(XY_KL, scores(KL, choi=14), bubble = 4, col = "black", main = "PCNM 14")
 mtext("A", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 # non-core
-ordisurf(XY_AG, scores(AG, choi=8), bubble = 4, col = "black", main = "PCNM 8")
+ordisurf(XY_KL, scores(KL, choi=8), bubble = 4, col = "black", main = "PCNM 8")
 mtext("B", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
-ordisurf(XY_AG, scores(AG, choi=7), bubble = 4, col = "black", main = "PCNM 7")
-ordisurf(XY_AG, scores(AG, choi=2), bubble = 4, col = "black", main = "PCNM 2")
+ordisurf(XY_KL, scores(KL, choi=7), bubble = 4, col = "black", main = "PCNM 7")
+ordisurf(XY_KL, scores(KL, choi=2), bubble = 4, col = "black", main = "PCNM 2")
 dev.off()
 
 ## Figure 3 - Adjusted R2
