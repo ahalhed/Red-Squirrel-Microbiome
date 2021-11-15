@@ -1,175 +1,88 @@
-Grid,Year,Month,VariableType,Community,R2Adj,Significant,P
-AG,2008,3,Host factors,Core,Not Run,Not Run,Not Run
-AG,2008,3,Host factors,Non-core,Not Run,Not Run,Not Run
-AG,2008,3,Host factors,Full,Not Run,Not Run,Not Run
-AG,2008,4,Host factors,Core,Not Run,Not Run,Not Run
-AG,2008,4,Host factors,Non-core,Not Run,Not Run,Not Run
-AG,2008,4,Host factors,Full,Not Run,Not Run,Not Run
-AG,2008,5,Host factors,Core,Not Run,Not Run,Not Run
-AG,2008,5,Host factors,Non-core,Not Run,Not Run,Not Run
-AG,2008,5,Host factors,Full,Not Run,Not Run,Not Run
-AG,2008,6,Host factors,Core,Not Run,Not Run,Not Run
-AG,2008,6,Host factors,Non-core,Not Run,Not Run,Not Run
-AG,2008,6,Host factors,Full,Not Run,Not Run,Not Run
-AG,2008,7,Host factors,Core,Not Run,Not Run,Not Run
-AG,2008,7,Host factors,Non-core,Not Run,Not Run,Not Run
-AG,2008,7,Host factors,Full,Not Run,Not Run,Not Run
-AG,2008,8,Host factors,Core,Not Run,Not Run,Not Run
-AG,2008,8,Host factors,Non-core,Not Run,Not Run,Not Run
-AG,2008,8,Host factors,Full,Not Run,Not Run,Not Run
-AG,2008,3,Spatial,Core,0.071804718,No,NA
-AG,2008,3,Spatial,Non-core,0.075734036,Yes,0.006
-AG,2008,3,Spatial,Full,0.075708274,Yes,0.007
-AG,2008,4,Spatial,Core,0.09916855,No,NA
-AG,2008,4,Spatial,Non-core,-0.076444836,No,NA
-AG,2008,4,Spatial,Full,0.017018728,No,NA
-AG,2008,5,Spatial,Core,0.0395605731,Yes,0.017
-AG,2008,5,Spatial,Non-core,0.0727851763,Yes,0.001
-AG,2008,5,Spatial,Full,0.072548964,Yes,0.002
-AG,2008,6,Spatial,Core,-0.0978030386,No,NA
-AG,2008,6,Spatial,Non-core,0.0057990641,No,NA
-AG,2008,6,Spatial,Full,0.0050974038,No,NA
-AG,2008,7,Spatial,Core,0.071542638,Yes,0.006
-AG,2008,7,Spatial,Non-core,0.0473812340,Yes,0.001
-AG,2008,7,Spatial,Full,0.0475485019,Yes,0.001
-AG,2008,8,Spatial,Core,0.0172222520,No,NA
-AG,2008,8,Spatial,Non-core,0.0053301060,No,NA
-AG,2008,8,Spatial,Full,-0.0025807509,No,NA
-CH,2008,4,Host factors,Core,Not Run,Not Run,Not Run
-CH,2008,4,Host factors,Non-core,Not Run,Not Run,Not Run
-CH,2008,4,Host factors,Full,Not Run,Not Run,Not Run
-CH,2008,5,Host factors,Core,Not Run,Not Run,Not Run
-CH,2008,5,Host factors,Non-core,Not Run,Not Run,Not Run
-CH,2008,5,Host factors,Full,Not Run,Not Run,Not Run
-CH,2008,4,Spatial,Core,0.135425172,Yes,0.047
-CH,2008,4,Spatial,Non-core,0.0592080600,No,NA
-CH,2008,4,Spatial,Full,0.0596418282,No,NA
-CH,2008,5,Spatial,Core,0.104216748,No,NA
-CH,2008,5,Spatial,Non-core,0.011611117,No,NA
-CH,2008,5,Spatial,Full,0.012290530,No,NA
-JO,2008,5,Host factors,Core,Not Run,Not Run,Not Run
-JO,2008,5,Host factors,Non-core,Not Run,Not Run,Not Run
-JO,2008,5,Host factors,Full,Not Run,Not Run,Not Run
-JO,2008,5,Spatial,Core,0.024094877,No,NA
-JO,2008,5,Spatial,Non-core,0.0245082929,Yes,0.006
-JO,2008,5,Spatial,Full,0.0245062894,Yes,0.005
-KL,2008,3,Host factors,Core,Not Run,Not Run,Not Run
-KL,2008,3,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2008,3,Host factors,Full,Not Run,Not Run,Not Run
-KL,2008,4,Host factors,Core,Not Run,Not Run,Not Run
-KL,2008,4,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2008,4,Host factors,Full,Not Run,Not Run,Not Run
-KL,2008,5,Host factors,Core,Not Run,Not Run,Not Run
-KL,2008,5,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2008,5,Host factors,Full,Not Run,Not Run,Not Run
-KL,2008,6,Host factors,Core,Not Run,Not Run,Not Run
-KL,2008,6,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2008,6,Host factors,Full,Not Run,Not Run,Not Run
-KL,2008,7,Host factors,Core,Not Run,Not Run,Not Run
-KL,2008,7,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2008,7,Host factors,Full,Not Run,Not Run,Not Run
-KL,2008,8,Host factors,Core,Not Run,Not Run,Not Run
-KL,2008,8,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2008,8,Host factors,Full,Not Run,Not Run,Not Run
-KL,2008,3,Spatial,Core,0.1802138313,Yes,0.001
-KL,2008,3,Spatial,Non-core,0.0856822881,Yes,0.001
-KL,2008,3,Spatial,Full,0.0862281920,Yes,0.001
-KL,2008,4,Spatial,Core,0.091427972,Yes,0.001
-KL,2008,4,Spatial,Non-core,0.0614556606,Yes,0.001
-KL,2008,4,Spatial,Full,0.0616639873,Yes,0.001
-KL,2008,5,Spatial,Core,0.1396699957,Yes,0.007
-KL,2008,5,Spatial,Non-core,0.08471585,Yes,0.001
-KL,2008,5,Spatial,Full,0.08504840,Yes,0.001
-KL,2008,6,Spatial,Core,0.115152325,Yes,0.005
-KL,2008,6,Spatial,Non-core,0.1563531193,Yes,0.001
-KL,2008,6,Spatial,Full,0.1560870211,Yes,0.001
-KL,2008,7,Spatial,Core,0.0454970105,No,NA
-KL,2008,7,Spatial,Non-core,0.0150374350,Yes,0.02
-KL,2008,7,Spatial,Full,0.0152086096,Yes,0.028
-KL,2008,8,Spatial,Core,0.095639091,Yes,0.029
-KL,2008,8,Spatial,Non-core,0.120906601,Yes,0.003
-KL,2008,8,Spatial,Full,0.120789571,Yes,0.003
-KL,2009,3,Host factors,Core,Not Run,Not Run,Not Run
-KL,2009,3,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2009,3,Host factors,Full,Not Run,Not Run,Not Run
-KL,2009,4,Host factors,Core,Not Run,Not Run,Not Run
-KL,2009,4,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2009,4,Host factors,Full,Not Run,Not Run,Not Run
-KL,2009,5,Host factors,Core,Not Run,Not Run,Not Run
-KL,2009,5,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2009,5,Host factors,Full,Not Run,Not Run,Not Run
-KL,2009,6,Host factors,Core,Not Run,Not Run,Not Run
-KL,2009,6,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2009,6,Host factors,Full,Not Run,Not Run,Not Run
-KL,2009,7,Host factors,Core,Not Run,Not Run,Not Run
-KL,2009,7,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2009,7,Host factors,Full,Not Run,Not Run,Not Run
-KL,2009,8,Host factors,Core,Not Run,Not Run,Not Run
-KL,2009,8,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2009,8,Host factors,Full,Not Run,Not Run,Not Run
-KL,2009,3,Spatial,Core,0.0871192774,No,NA
-KL,2009,3,Spatial,Non-core,0.11245052,Yes,0.006
-KL,2009,3,Spatial,Full,0.11224056,Yes,0.006
-KL,2009,4,Spatial,Core,-0.008834095,No,NA
-KL,2009,4,Spatial,Non-core,0.09417771,Yes,0.001
-KL,2009,4,Spatial,Full,0.09350030,Yes,0.001
-KL,2009,5,Spatial,Core,-0.039563298,No,NA
-KL,2009,5,Spatial,Non-core,0.0184125607,No,NA
-KL,2009,5,Spatial,Full,0.0179265290,No,NA
-KL,2009,6,Spatial,Core,-0.108450730,No,NA
-KL,2009,6,Spatial,Non-core,0.04150409,No,NA
-KL,2009,6,Spatial,Full,0.04074002,No,NA
-KL,2009,7,Spatial,Core,0.0402044018,No,NA
-KL,2009,7,Spatial,Non-core,0.16464754,Yes,0.001
-KL,2009,7,Spatial,Full,0.16386704,Yes,0.001
-KL,2009,8,Spatial,Core,0.011428541,No,NA
-KL,2009,8,Spatial,Non-core,0.0660882267,No,NA
-KL,2009,8,Spatial,Full,0.0657814451,No,NA
-KL,2010,2,Host factors,Core,Not Run,Not Run,Not Run
-KL,2010,2,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2010,2,Host factors,Full,Not Run,Not Run,Not Run
-KL,2010,3,Host factors,Core,Not Run,Not Run,Not Run
-KL,2010,3,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2010,3,Host factors,Full,Not Run,Not Run,Not Run
-KL,2010,4,Host factors,Core,Not Run,Not Run,Not Run
-KL,2010,4,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2010,4,Host factors,Full,Not Run,Not Run,Not Run
-KL,2010,5,Host factors,Core,Not Run,Not Run,Not Run
-KL,2010,5,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2010,5,Host factors,Full,Not Run,Not Run,Not Run
-KL,2010,6,Host factors,Core,Not Run,Not Run,Not Run
-KL,2010,6,Host factors,Non-core,Not Run,Not Run,Not Run
-KL,2010,6,Host factors,Full,Not Run,Not Run,Not Run
-KL,2010,2,Spatial,Core,0.14276454,Yes,0.002
-KL,2010,2,Spatial,Non-core,0.0394762013,Yes,0.005
-KL,2010,2,Spatial,Full,0.04016413,Yes,0.005
-KL,2010,3,Spatial,Core,0.1406390173,Yes,0.001
-KL,2010,3,Spatial,Non-core,0.1217812589,Yes,0.001
-KL,2010,3,Spatial,Full,0.1219203593,Yes,0.001
-KL,2010,4,Spatial,Core,0.0514527707,No,NA
-KL,2010,4,Spatial,Non-core,0.026492430,Yes,0.002
-KL,2010,4,Spatial,Full,0.0266632127,Yes,0.002
-KL,2010,5,Spatial,Core,0.152179904,Yes,0.001
-KL,2010,5,Spatial,Non-core,0.0108107531,Yes,0.032
-KL,2010,5,Spatial,Full,0.011961555,Yes,0.033
-KL,2010,6,Spatial,Core,-0.0081978953,No,NA
-KL,2010,6,Spatial,Non-core,0.0843998023,Yes,0.001
-KL,2010,6,Spatial,Full,0.0838535975,Yes,0.001
-LL,2008,4,Host factors,Core,Not Run,Not Run,Not Run
-LL,2008,4,Host factors,Non-core,Not Run,Not Run,Not Run
-LL,2008,4,Host factors,Full,Not Run,Not Run,Not Run
-LL,2008,5,Host factors,Core,Not Run,Not Run,Not Run
-LL,2008,5,Host factors,Non-core,Not Run,Not Run,Not Run
-LL,2008,5,Host factors,Full,Not Run,Not Run,Not Run
-LL,2008,4,Spatial,Core,0.079771872,No,NA
-LL,2008,4,Spatial,Non-core,0.09840009,No,NA
-LL,2008,4,Spatial,Full,0.0982696745,No,NA
-LL,2008,5,Spatial,Core,0.089593154,No,NA
-LL,2008,5,Spatial,Non-core,0.0326813695,No,NA
-LL,2008,5,Spatial,Full,0.0330651009,No,NA
-SU,2008,5,Host factors,Core,Not Run,Not Run,Not Run
-SU,2008,5,Host factors,Non-core,Not Run,Not Run,Not Run
-SU,2008,5,Host factors,Full,Not Run,Not Run,Not Run
-SU,2008,5,Spatial,Core,0.030727482,No,NA
-SU,2008,5,Spatial,Non-core,0.0460307622,Yes,0.032
-SU,2008,5,Spatial,Full,0.0454898427,Yes,0.046
+Grid,Year,Month,Community,R2Adj,Significant,P
+AG,2008,3,Core,0.071804718,No,NA
+AG,2008,3,Non-core,0.075734036,Yes,0.008
+AG,2008,3,Full,0.075708274,Yes,0.07
+AG,2008,4,Core,0.09916855,Yes,0.057
+AG,2008,4,Non-core,-0.076444836,No,NA
+AG,2008,4,Full,-0.075191968,No,NA
+AG,2008,5,Core,0.0395605731,Yes,0.019
+AG,2008,5,Non-core,0.0727851763,Yes,0.003
+AG,2008,5,Full,0.072548964,Yes,0.006
+AG,2008,6,Core,-0.0978030386,No,NA
+AG,2008,6,Non-core,0.0057990641,No,NA
+AG,2008,6,Full,0.0050974038,No,NA
+AG,2008,7,Core,0.071542638,Yes,0.005
+AG,2008,7,Non-core,0.0473812340,Yes,0.001
+AG,2008,7,Full,0.0050974038,Yes,0.001
+AG,2008,8,Core,0.0172222520,No,NA
+AG,2008,8,Non-core,-0.0027099666,No,NA
+AG,2008,8,Full,-0.0025807509,No,NA
+CH,2008,4,Core,0.135425172,Yes,0.034
+CH,2008,4,Non-core,0.0592080600,Yes,0.043
+CH,2008,4,Full,0.0596418282,Yes,0.033
+CH,2008,5,Core,0.105811870,No,NA
+CH,2008,5,Non-core,0.011611117,No,NA
+CH,2008,5,Full,0.012290530,No,NA
+JO,2008,5,Core,0.024094877,No,NA
+JO,2008,5,Non-core,0.0245082929,Yes,0.004
+JO,2008,5,Full,0.0245062894,Yes,0.004
+KL,2008,3,Core,0.1802138313,Yes,0.001
+KL,2008,3,Non-core,0.0856822881,Yes,0.001
+KL,2008,3,Full,0.0862281920,Yes,0.001
+KL,2008,4,Core,0.091427972,Yes,0.001
+KL,2008,4,Non-core,0.0614556606,Yes,0.001
+KL,2008,4,Full,0.0616639873,Yes,0.001
+KL,2008,5,Core,0.1396699957,Yes,0.011
+KL,2008,5,Non-core,0.08471585,Yes,0.001
+KL,2008,5,Full,0.08504840,Yes,0.001
+KL,2008,6,Core,0.115152325,Yes,0.02
+KL,2008,6,Non-core,0.1563531193,Yes,0.001
+KL,2008,6,Full,0.1560870211,Yes,0.001
+KL,2008,7,Core,0.0454970105,No,NA
+KL,2008,7,Non-core,0.0150374350,Yes,0.037
+KL,2008,7,Full,0.0152086096,Yes,0.024
+KL,2008,8,Core,0.095639091,Yes,0.035
+KL,2008,8,Non-core,0.120906601,Yes,0.004
+KL,2008,8,Full,0.120789571,Yes,0.005
+KL,2009,3,Core,0.0871192774,No,NA
+KL,2009,3,Non-core,0.11245052,Yes,0.004
+KL,2009,3,Full,0.11224056,Yes,0.009
+KL,2009,4,Core,-0.008834095,No,NA
+KL,2009,4,Non-core,0.09417771,Yes,0.001
+KL,2009,4,Full,0.09350030,Yes,0.001
+KL,2009,5,Core,-0.039563298,No,NA
+KL,2009,5,Non-core,0.0184125607,No,NA
+KL,2009,5,Full,0.0179265290,No,NA
+KL,2009,6,Core,-0.108450730,No,NA
+KL,2009,6,Non-core,0.04150409,No,NA
+KL,2009,6,Full,0.04074002,No,NA
+KL,2009,7,Core,0.0402044018,No,NA
+KL,2009,7,Non-core,0.16464754,Yes,0.001
+KL,2009,7,Full,0.16386704,Yes,0.001
+KL,2009,8,Core,0.011428541,No,NA
+KL,2009,8,Non-core,0.0660882267,No,NA
+KL,2009,8,Full,0.0657814451,No,NA
+KL,2010,2,Core,0.14276454,Yes,0.001
+KL,2010,2,Non-core,0.0394762013,Yes,0.002
+KL,2010,2,Full,0.04016413,Yes,0.005
+KL,2010,3,Core,0.1406390173,Yes,0.001
+KL,2010,3,Non-core,0.1217812589,Yes,0.001
+KL,2010,3,Full,0.1219203593,Yes,0.001
+KL,2010,4,Core,0.0514527707,No,NA
+KL,2010,4,Non-core,0.026492430,Yes,0.004
+KL,2010,4,Full,0.0266632127,Yes,0.001
+KL,2010,5,Core,0.152179904,Yes,0.001
+KL,2010,5,Non-core,0.0108107531,Yes,0.045
+KL,2010,5,Full,0.017760283,Yes,0.031
+KL,2010,6,Core,-0.0081978953,No,NA
+KL,2010,6,Non-core,0.0843998023,Yes,0.001
+KL,2010,6,Full,0.0838535975,Yes,0.001
+LL,2008,4,Core,0.079771872,No,NA
+LL,2008,4,Non-core,0.09840009,No,NA
+LL,2008,4,Full,0.0982696745,No,NA
+LL,2008,5,Core,0.089593154,No,NA
+LL,2008,5,Non-core,0.0326813695,No,NA
+LL,2008,5,Full,0.0330651009,No,NA
+SU,2008,5,Core,-0.036756934,No,NA
+SU,2008,5,Non-core,0.0460307622,Yes,0.047
+SU,2008,5,Full,0.0454898427,Yes,0.036
