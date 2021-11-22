@@ -141,7 +141,7 @@ fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot)) + #, color
   annotate("text", x = 0.00001, y = 0.78, label = ">75% Occupancy") +
   geom_hline(yintercept = 0.75, linetype = "dashed", size = 0.5) +
   # add axis labels
-  labs(x = "Mean Relative Abundance of Each OTU (log10)", y = "Occupancy (Proportion of Samples)",
+  labs(x = "Mean Relative Abundance of Each ASV (log10)", y = "Occupancy (Proportion of Samples)",
        color = "Community", shape = "Community")
 
 # export plot 1 to a file
