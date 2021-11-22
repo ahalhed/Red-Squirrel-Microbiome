@@ -103,7 +103,6 @@ ps <- qza_to_phyloseq(features = "../ASV-table-10-filtered.qza",
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), sample_data(.))
 
 # based on the meta function from the microbiome package
-# I don't want to load a whole package for one function
 print("Read in the metadata")
 meta <- as(sample_data(ps), "data.frame")
 rownames(meta) <- sample_names(ps)
@@ -177,16 +176,14 @@ dev.off()
 # read in the data
 # values taken from output files from monthly PCNM analyses
 # pivot the data of interest into long format
-adj <- read_csv("./data/Figure3Data.csv")
-adj <- adj[which(adj$Community != "Full"),] %>%
-  .[which(.$VariableType != "Host factors"),]
+adj <- read_csv("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/data/Figure3Data.csv")
+adj <- adj[which(adj$Community != "Full"),]
 
 # create plot for all adjusted R2 points
 fig3 <- ggplot(adj, aes(Month, as.numeric(R2Adj), color = Community)) +
   geom_smooth(method = "lm", aes(linetype = Community)) + 
   geom_jitter(aes(shape = as.character(Year))) + 
   scale_color_manual(values=c("grey20", "black")) + 
-  #facet_grid(~VariableType) +
   labs(y = expression(paste("Adjusted R"^"2")), shape = "Collection Year")
 
 # exporting figure 3
@@ -205,13 +202,13 @@ adj[which(adj$Community=="Non-core"),] %>% lm(R2Adj ~ Month, data = .) %>% summa
 ## Figure 4 - LOESS regression
 # calculate Aitchison dissimilarity (euclidean distance on CLR transformed OTU table)
 core_dis <- dis(OTU_core, meta)
-#write.table(core_dis, file='./data/core-dis.tsv', quote=FALSE, sep='\t', row.names = F)
+write.table(core_dis, file='./data/core-dis.tsv', quote=FALSE, sep='\t', row.names = F)
 #core_dis <- read.table("./data/core-dis.tsv.gz", sep = "\t", header = T)
 nc_dis <- dis(OTU_nc, meta)
-#write.table(nc_dis, file='./data/nonCore-dis.tsv', quote=FALSE, sep='\t', row.names = F)
+write.table(nc_dis, file='./data/nonCore-dis.tsv', quote=FALSE, sep='\t', row.names = F)
 #nc_dis <- read.table("./data/nonCore-dis.tsv.gz", sep = "\t", header = T)
 full_dis <- dis(OTU_full, meta)
-#write.table(full_dis, file='./data/full-dis.tsv', quote=FALSE, sep='\t', row.names = F)
+write.table(full_dis, file='./data/full-dis.tsv', quote=FALSE, sep='\t', row.names = F)
 #full_dis <- read.table("./data/full-dis.tsv.gz", sep = "\t", header = T)
 
 # mutate the distance df to include date columns
