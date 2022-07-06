@@ -141,6 +141,7 @@ fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot, color = plo
   # add 75% threshold
   annotate("text", x = 0.00001, y = 0.78, label = ">75% Occupancy") +
   geom_hline(yintercept = 0.75, linetype = "dashed", size = 0.5) +
+  scale_color_viridis_d() +
   # add axis labels
   labs(x = "Mean Relative Abundance of Each ASV (log10)", y = "Occupancy (Proportion of Samples)",
        color = "Community", shape = "Community")
@@ -162,12 +163,10 @@ KL <- pcnm(d_KL)
 # generate figure 2
 tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
 par(mfrow=c(1,4))
-# core
-ordisurf(XY_KL, scores(KL, choi=14), bubble = 4, col = "black", main = "PCNM 14")
-mtext("A", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
-# non-core
+# core (red)
+ordisurf(XY_KL, scores(KL, choi=14), bubble = 4, col = "red", main = "PCNM 14")
+# non-core (black)
 ordisurf(XY_KL, scores(KL, choi=8), bubble = 4, col = "black", main = "PCNM 8")
-mtext("B", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 ordisurf(XY_KL, scores(KL, choi=7), bubble = 4, col = "black", main = "PCNM 7")
 ordisurf(XY_KL, scores(KL, choi=2), bubble = 4, col = "black", main = "PCNM 2")
 dev.off()
@@ -182,9 +181,10 @@ adj <- adj[which(adj$Community != "Full"),]
 
 # create plot for all adjusted R2 points
 fig3 <- ggplot(adj, aes(Month, as.numeric(R2Adj), color = Community)) +
-  geom_smooth(method = "lm", aes(linetype = Community)) + 
-  geom_jitter(aes(shape = as.character(Year))) + 
-  scale_color_manual(values=c("grey20", "black")) + 
+  geom_smooth(method = "lm") + #, aes(linetype = Community)
+  geom_jitter(aes(shape = as.character(Year))) +
+  scale_color_viridis_d() +
+  #scale_color_manual(values=c("grey20", "black")) + 
   labs(y = expression(paste("Adjusted R"^"2")), shape = "Collection Year")
 
 # exporting figure 3
