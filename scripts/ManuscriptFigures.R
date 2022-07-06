@@ -23,10 +23,10 @@ library(tidyverse)
 # set theme for ggplots
 theme_set(theme_bw())
 
-# calculate euclidean dissimilarity from an community matrix formatted OTU table
+# calculate euclidean dissimilarity from an community matrix formatted ASV table
 # relies on tidyverse, vegan
 dis <- function(OTU, met) {
-  # OTU is the community matrix containing the OTUs
+  # ASV is the community matrix containing the ASVs
   # met is a data frame containing the environmental metadata
   m <- rownames_to_column(met, var = "SampleID")
   df <- OTU %>% data.matrix(rownames.force = T) %>%
@@ -98,7 +98,8 @@ XY_month <- function(metadata, grid, year, month) {
 ## get the data
 print("Read in the Data")
 print("Building phyloseq object")
-ps <- qza_to_phyloseq(features = "../ASV-table-10-filtered.qza",
+# ~/OneDrive - Carleton University (1)/UniversityOfGuelph/Alicia's Thesis/RedSquirrelMicrobiome/
+ps <- qza_to_phyloseq(features = "ASV-table-10-filtered.qza ",
                       metadata = "../input/RS_meta.tsv") %>%
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), sample_data(.))
 
@@ -107,11 +108,11 @@ print("Read in the metadata")
 meta <- as(sample_data(ps), "data.frame")
 rownames(meta) <- sample_names(ps)
 
-print("Full OTU table")
+print("Full ASV table")
 print("Aitchison transformation")
-# rows are OTUs, then transposed to OTUs as column
-# impute the OTU table
-OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM", output="p-counts") # all OTUs
+# rows are ASVs, then transposed to ASVs as column
+# impute the ASV table
+OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM", output="p-counts") # all ASVs
 # compute the aitchison values
 OTU_full <- codaSeq.clr(abs(OTUimp)) %>% as.data.frame
 
@@ -122,18 +123,18 @@ print("Extract 75% Occupancy from BC Similarity Core")
 occ_abun <- read.csv("./data/core.csv")
 # new column for just core and non-core
 occ_abun$plot <- ifelse(occ_abun$Community == "Confirmed Core", "Core", "Non-core")
-# get the OTUs identified as core contributors to beta diversity
+# get the ASVs identified as core contributors to beta diversity
 # and greater than 75% occupancy (confirmed core)
 cOTU <- occ_abun[which(occ_abun$Community == "Confirmed Core"),]
 # make the new data frames
-print("Subset the OTU table to find core and non-core OTUs")
+print("Subset the ASV table to find core and non-core ASVs")
 OTU_core <- select(OTU_full, one_of(cOTU$otu))
 OTU_nc <- select(OTU_full, -one_of(cOTU$otu))
 
 ## Figure 1 - Core Community Cutoff
-# This plot shows the fraction of the OTUs included in the core microbiome
+# This plot shows the fraction of the ASVs included in the core microbiome
 # create the framework for the plot
-fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot)) + #, color = plot
+fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot, color = plot)) + #, color = plot
   geom_point() +
   # log transform the x axis
   scale_x_log10() +
@@ -200,7 +201,7 @@ print("All Adjusted R-squared Values - Non-core only")
 adj[which(adj$Community=="Non-core"),] %>% lm(R2Adj ~ Month, data = .) %>% summary
 
 ## Figure 4 - LOESS regression
-# calculate Aitchison dissimilarity (euclidean distance on CLR transformed OTU table)
+# calculate Aitchison dissimilarity (euclidean distance on CLR transformed ASV table)
 core_dis <- dis(OTU_core, meta)
 write.table(core_dis, file='./data/core-dis.tsv', quote=FALSE, sep='\t', row.names = F)
 #core_dis <- read.table("./data/core-dis.tsv.gz", sep = "\t", header = T)
