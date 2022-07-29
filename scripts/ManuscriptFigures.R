@@ -98,9 +98,9 @@ XY_month <- function(metadata, grid, year, month) {
 ## get the data
 print("Read in the Data")
 print("Building phyloseq object")
-# ~/OneDrive - Carleton University (1)/UniversityOfGuelph/Alicia's Thesis/RedSquirrelMicrobiome/
-ps <- qza_to_phyloseq(features = "ASV-table-10-filtered.qza ",
-                      metadata = "../input/RS_meta.tsv") %>%
+#setwd("~/Library/CloudStorage/OneDrive-CarletonUniversity(1)/UniversityOfGuelph/Alicia's Thesis/RedSquirrelMicrobiome")
+ps <- qza_to_phyloseq(features = "ASV-table-10-filtered.qza",
+                      metadata = "./input/RS_meta.tsv") %>%
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), sample_data(.))
 
 # based on the meta function from the microbiome package
