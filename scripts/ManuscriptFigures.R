@@ -164,10 +164,14 @@ tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240
 par(mfrow=c(1,4))
 # core (red)
 ordisurf(XY_KL, scores(KL, choi=14), bubble = 4, col = "red", main = "PCNM 14")
+mtext("A", side=3, line=1.5, at=-2.5, adj=0, cex=1)
 # non-core (black)
 ordisurf(XY_KL, scores(KL, choi=8), bubble = 4, col = "black", main = "PCNM 8")
+mtext("B", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 ordisurf(XY_KL, scores(KL, choi=7), bubble = 4, col = "black", main = "PCNM 7")
+mtext("C", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 ordisurf(XY_KL, scores(KL, choi=2), bubble = 4, col = "black", main = "PCNM 2")
+mtext("D", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 dev.off()
 
 ## Figure 3 - Adjusted R2
