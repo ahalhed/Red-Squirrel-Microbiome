@@ -8,7 +8,7 @@
 # run on graham cluster interactively
 # salloc --time=0-00:30:00 --mem=8G --account=def-cottenie
 # module load nixpkgs/16.09 gcc/7.3.0 r/3.6.0
-setwd("/home/ahalhed/MSc/Red-Squirrel-Microbiome/")
+setwd("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/")
 # attaching required packages for full analysis
 # qiime2R to create phyloseq object
 library(phyloseq)
@@ -23,10 +23,10 @@ library(tidyverse)
 # set theme for ggplots
 theme_set(theme_bw())
 
-# calculate euclidean dissimilarity from an community matrix formatted ASV table
+# calculate euclidean dissimilarity from an community matrix formatted OTU table
 # relies on tidyverse, vegan
 dis <- function(OTU, met) {
-  # ASV is the community matrix containing the ASVs
+  # OTU is the community matrix containing the OTUs
   # met is a data frame containing the environmental metadata
   m <- rownames_to_column(met, var = "SampleID")
   df <- OTU %>% data.matrix(rownames.force = T) %>%
@@ -48,23 +48,23 @@ gr <- function(df){
   df$Grid <- ifelse(df$Grid.x == df$Grid.y, "Same Grid", "Different Grid")
   # add location information
   df$LocationIndividual <- ifelse(df$sampleid1 == df$sampleid2, "Same Sample",
-                        ifelse(df$`Grid.x` != df$`Grid.y`, "Different Grid",
-                               ifelse(df$`Squirrel.ID.x` == df$`Squirrel.ID.y` &
-                                        df$`Location.X.x` == df$`Location.X.y` &
-                                        df$`Location.Y.x` == df$`Location.Y.y`,
-                                      "Same Squirrel, Same Location",
-                                      ifelse(df$Squirrel.ID.x != df$Squirrel.ID.y &
-                                               df$`Location.X.x` == df$`Location.X.y` &
-                                               df$`Location.Y.x` == df$`Location.Y.y`,
-                                             "Different Squirrel, Same Location",
-                                             ifelse(df$Squirrel.ID.x != df$Squirrel.ID.y &
-                                                      df$`Location.X.x` != df$`Location.X.y` |
-                                                      df$`Location.Y.x` != df$`Location.Y.y`,
-                                                    "Different Squirrel, Different Location",
-                                                    ifelse(df$Squirrel.ID.x == df$Squirrel.ID.y &
-                                                             df$`Location.X.x` != df$`Location.X.y` |
-                                                             df$`Location.Y.x` != df$`Location.Y.y`,
-                                                           "Same Squirrel, Different Location", NA))))))
+                                  ifelse(df$`Grid.x` != df$`Grid.y`, "Different Grid",
+                                         ifelse(df$`Squirrel.ID.x` == df$`Squirrel.ID.y` &
+                                                  df$`Location.X.x` == df$`Location.X.y` &
+                                                  df$`Location.Y.x` == df$`Location.Y.y`,
+                                                "Same Squirrel, Same Location",
+                                                ifelse(df$Squirrel.ID.x != df$Squirrel.ID.y &
+                                                         df$`Location.X.x` == df$`Location.X.y` &
+                                                         df$`Location.Y.x` == df$`Location.Y.y`,
+                                                       "Different Squirrel, Same Location",
+                                                       ifelse(df$Squirrel.ID.x != df$Squirrel.ID.y &
+                                                                df$`Location.X.x` != df$`Location.X.y` |
+                                                                df$`Location.Y.x` != df$`Location.Y.y`,
+                                                              "Different Squirrel, Different Location",
+                                                              ifelse(df$Squirrel.ID.x == df$Squirrel.ID.y &
+                                                                       df$`Location.X.x` != df$`Location.X.y` |
+                                                                       df$`Location.Y.x` != df$`Location.Y.y`,
+                                                                     "Same Squirrel, Different Location", NA))))))
   # add date information
   df$CollectionDate <- ifelse(df$CollectionDate.x == df$CollectionDate.y, "Same Date", "Different Date")
   return(df)
@@ -98,8 +98,8 @@ XY_month <- function(metadata, grid, year, month) {
 ## get the data
 print("Read in the Data")
 print("Building phyloseq object")
-ps <- qza_to_phyloseq(features = "../Red-Squirrel-MicrobiomeDATA/ASV-table-10-filtered.qza",
-                      metadata = "../Red-Squirrel-MicrobiomeDATA/RS_meta.tsv") %>%
+ps <- qza_to_phyloseq(features = "../ASV-table-10-filtered.qza",
+                      metadata = "../input/RS_meta.tsv") %>%
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), sample_data(.))
 
 # based on the meta function from the microbiome package
@@ -107,11 +107,11 @@ print("Read in the metadata")
 meta <- as(sample_data(ps), "data.frame")
 rownames(meta) <- sample_names(ps)
 
-print("Full ASV table")
+print("Full OTU table")
 print("Aitchison transformation")
-# rows are ASVs, then transposed to ASVs as column
-# impute the ASV table
-OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM", output="p-counts") # all ASVs
+# rows are OTUs, then transposed to OTUs as column
+# impute the OTU table
+OTUimp <- cmultRepl(otu_table(ps), label=0, method="CZM", output="p-counts") # all OTUs
 # compute the aitchison values
 OTU_full <- codaSeq.clr(abs(OTUimp)) %>% as.data.frame
 
@@ -119,34 +119,33 @@ OTU_full <- codaSeq.clr(abs(OTUimp)) %>% as.data.frame
 print("Finding core microbiome")
 print("Extract 75% Occupancy from BC Similarity Core")
 # read in occupancy/abundance information
-occ_abun <- read.csv("../Red-Squirrel-MicrobiomeDATA/core.csv")
+occ_abun <- read.csv("./data/core.csv")
 # new column for just core and non-core
 occ_abun$plot <- ifelse(occ_abun$Community == "Confirmed Core", "Core", "Non-core")
-# get the ASVs identified as core contributors to beta diversity
+# get the OTUs identified as core contributors to beta diversity
 # and greater than 75% occupancy (confirmed core)
 cOTU <- occ_abun[which(occ_abun$Community == "Confirmed Core"),]
 # make the new data frames
-print("Subset the ASV table to find core and non-core ASVs")
+print("Subset the OTU table to find core and non-core OTUs")
 OTU_core <- select(OTU_full, one_of(cOTU$otu))
 OTU_nc <- select(OTU_full, -one_of(cOTU$otu))
 
 ## Figure 1 - Core Community Cutoff
-# This plot shows the fraction of the ASVs included in the core microbiome
+# This plot shows the fraction of the OTUs included in the core microbiome
 # create the framework for the plot
-fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot, color = plot)) + #, color = plot
+fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot)) + #, color = plot
   geom_point() +
   # log transform the x axis
   scale_x_log10() +
   # add 75% threshold
   annotate("text", x = 0.00001, y = 0.78, label = ">75% Occupancy") +
   geom_hline(yintercept = 0.75, linetype = "dashed", size = 0.5) +
-  scale_color_viridis_d() +
   # add axis labels
   labs(x = "Mean Relative Abundance of Each ASV (log10)", y = "Occupancy (Proportion of Samples)",
        color = "Community", shape = "Community")
 
 # export plot 1 to a file
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
 fig1 + theme(text = element_text(size = 20))
 dev.off()
 
@@ -160,14 +159,18 @@ d_KL <- dist(XY_KL)
 KL <- pcnm(d_KL)
 
 # generate figure 2
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
 par(mfrow=c(1,4))
-# core (red)
+# core
 ordisurf(XY_KL, scores(KL, choi=14), bubble = 4, col = "red", main = "PCNM 14")
-# non-core (black)
+mtext("A", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
+# non-core
 ordisurf(XY_KL, scores(KL, choi=8), bubble = 4, col = "black", main = "PCNM 8")
+mtext("B", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 ordisurf(XY_KL, scores(KL, choi=7), bubble = 4, col = "black", main = "PCNM 7")
+mtext("C", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 ordisurf(XY_KL, scores(KL, choi=2), bubble = 4, col = "black", main = "PCNM 2")
+mtext("D", side=3, line=1.5, at=-2.5, adj=0, cex=1) 
 dev.off()
 
 ## Figure 3 - Adjusted R2
@@ -175,19 +178,18 @@ dev.off()
 # read in the data
 # values taken from output files from monthly PCNM analyses
 # pivot the data of interest into long format
-adj <- read_csv("/home/ahalhed/MSc/Red-Squirrel-Microbiome/data/Figure3Data.csv")
+adj <- read_csv("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/data/Figure3Data.csv")
 adj <- adj[which(adj$Community != "Full"),]
 
 # create plot for all adjusted R2 points
 fig3 <- ggplot(adj, aes(Month, as.numeric(R2Adj), color = Community)) +
-  geom_smooth(method = "lm") + #, aes(linetype = Community)
-  geom_jitter(aes(shape = as.character(Year))) +
-  scale_color_viridis_d() +
-  #scale_color_manual(values=c("grey20", "black")) + 
+  geom_smooth(method = "lm", aes(linetype = Community)) + 
+  geom_jitter(aes(shape = as.character(Year))) + 
+  scale_color_manual(values=c("grey20", "black")) + 
   labs(y = expression(paste("Adjusted R"^"2")), shape = "Collection Year")
 
 # exporting figure 3
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
 fig3 + theme(text = element_text(size = 20))
 dev.off()
 
@@ -200,7 +202,7 @@ print("All Adjusted R-squared Values - Non-core only")
 adj[which(adj$Community=="Non-core"),] %>% lm(R2Adj ~ Month, data = .) %>% summary
 
 ## Figure 4 - LOESS regression
-# calculate Aitchison dissimilarity (euclidean distance on CLR transformed ASV table)
+# calculate Aitchison dissimilarity (euclidean distance on CLR transformed OTU table)
 core_dis <- dis(OTU_core, meta)
 write.table(core_dis, file='./data/core-dis.tsv', quote=FALSE, sep='\t', row.names = F)
 #core_dis <- read.table("./data/core-dis.tsv.gz", sep = "\t", header = T)
@@ -307,12 +309,12 @@ fullYP <- ggplot(linesYF, aes(x = int, y = EucDis, linetype = Location_f)) +
   ggtitle("Full Microbial Community") + theme(text = element_text(size = 20))
 
 # export figure 4
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
 ggarrange(coreYP, ncYP, labels = c("A", "B"),
           nrow=2, common.legend = T)
 dev.off()
 
 # putting full in a supplemental figure
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
+tiff("/home/ahalhed/projects/def-cottenie/Microbiome/RedSquirrelMicrobiome/Red-Squirrel-Microbiome/plots/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
 fullYP
 dev.off()
