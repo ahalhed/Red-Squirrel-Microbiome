@@ -8,7 +8,7 @@
 # run on graham cluster interactively
 # salloc --time=0-00:30:00 --mem=8G --account=def-cottenie
 # module load nixpkgs/16.09 gcc/7.3.0 r/3.6.0
-setwd("/home/ahalhed/MSc/Red-Squirrel-Microbiome/")
+setwd("/home/ahalhed/scratch/Red-Squirrel-Microbiome/")
 # attaching required packages for full analysis
 # qiime2R to create phyloseq object
 library(phyloseq)
@@ -98,8 +98,8 @@ XY_month <- function(metadata, grid, year, month) {
 ## get the data
 print("Read in the Data")
 print("Building phyloseq object")
-ps <- qza_to_phyloseq(features = "../Red-Squirrel-MicrobiomeDATA/ASV-table-10-filtered.qza",
-                      metadata = "../Red-Squirrel-MicrobiomeDATA/RS_meta.tsv") %>%
+ps <- qza_to_phyloseq(features = "/home/ahalhed/MSc/Red-Squirrel-MicrobiomeDATA/ASV-table-10-filtered.qza",
+                      metadata = "/home/ahalhed/MSc/Red-Squirrel-MicrobiomeDATA/RS_meta.tsv") %>%
   phyloseq(otu_table(t(otu_table(.)), taxa_are_rows = F), sample_data(.))
 
 # based on the meta function from the microbiome package
@@ -119,7 +119,7 @@ OTU_full <- codaSeq.clr(abs(OTUimp)) %>% as.data.frame
 print("Finding core microbiome")
 print("Extract 75% Occupancy from BC Similarity Core")
 # read in occupancy/abundance information
-occ_abun <- read.csv("../Red-Squirrel-MicrobiomeDATA/core.csv")
+occ_abun <- read.csv("/home/ahalhed/MSc/Red-Squirrel-MicrobiomeDATA/core.csv")
 # new column for just core and non-core
 occ_abun$plot <- ifelse(occ_abun$Community == "Confirmed Core", "Core", "Non-core")
 # get the ASVs identified as core contributors to beta diversity
@@ -146,7 +146,7 @@ fig1 <- ggplot(occ_abun, aes(y = otu_occ, x = otu_rel, shape = plot)) + #, color
        color = "Community", shape = "Community")
 
 # export plot 1 to a file
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
+tiff("/home/ahalhed/scratch/Red-Squirrel-Microbiome/plots/figure1.tiff", width = 259, height = 169, units = 'mm', res = 400)
 fig1 + theme(text = element_text(size = 20))
 dev.off()
 
@@ -160,7 +160,7 @@ d_KL <- dist(XY_KL)
 KL <- pcnm(d_KL)
 
 # generate figure 2
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
+tiff("/home/ahalhed/scratch/Red-Squirrel-Microbiome/plots/figure2.tiff", width = 240, height = 80, units = 'mm', res = 400)
 par(mfrow=c(1,4))
 # core (red)
 ordisurf(XY_KL, scores(KL, choi=14), bubble = 4, col = "black", main = "PCNM 14")
@@ -179,7 +179,7 @@ dev.off()
 # read in the data
 # values taken from output files from monthly PCNM analyses
 # pivot the data of interest into long format
-adj <- read_csv("/home/ahalhed/MSc/Red-Squirrel-Microbiome/data/Figure3Data.csv")
+adj <- read_csv("/home/ahalhed/scratch/Red-Squirrel-Microbiome/data/Figure3Data.csv")
 adj <- adj[which(adj$Community != "Full"),]
 
 # create plot for all adjusted R2 points
@@ -192,7 +192,7 @@ fig3 <- ggplot(adj, aes(Month, as.numeric(R2Adj), color = Community)) +
 # manually add in month labels
 
 # exporting figure 3
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
+tiff("/home/ahalhed/scratch/Red-Squirrel-Microbiome/plots/figure3.tiff", width = 240, height = 120, units = 'mm', res = 400)
 fig3 + theme(text = element_text(size = 20))
 dev.off()
 
@@ -313,12 +313,12 @@ fullYP <- ggplot(linesYF, aes(x = int, y = EucDis, linetype = Location_f)) +
   ggtitle("Full Microbial Community") + theme(text = element_text(size = 20))
 
 # export figure 4
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
+tiff("/home/ahalhed/scratch/Red-Squirrel-Microbiome/plots/figure4.tiff", width = 240, height = 240, units = 'mm', res = 400)
 ggarrange(coreYP, ncYP, labels = c("A", "B"),
           nrow=2, common.legend = T)
 dev.off()
 
 # putting full in a supplemental figure
-tiff("/home/ahalhed/MSc/Red-Squirrel-Microbiome/plots/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
+tiff("/home/ahalhed/scratch/Red-Squirrel-Microbiome/plots/supp4full.tiff", width = 110, height = 80, units = 'mm', res = 400)
 fullYP
 dev.off()
